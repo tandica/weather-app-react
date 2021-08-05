@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import WeatherList from "./WeatherList";
+import Weather from "./Weather";
 //import axios from "axios";
 require("dotenv").config();
 
@@ -62,10 +63,11 @@ export default function Form(props) {
 
     const data = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`
+      //` https://api.openweathermap.org/data/2.5/forecast?q=${input}&appid=38f1fbc74deb031d79636062ba66d984`
     )
       .then((res) => res.json())
       .then((data) => {
-        const weatherInfo = [...new Set(data.list.map((item) => item.main))];
+        const weatherInfo = [...new Set(data.list.map((item) => item))];
         //setForecast({ data: data });
         console.log("weatherinfoooo", weatherInfo);
         console.log("weatherinfoooo2", weatherInfo[0]);
@@ -83,13 +85,16 @@ export default function Form(props) {
 
   console.log("forecast checkkk", forecast[0]);
 
-  const currentTemp = [...new Set(forecast.map((item) => item.temp))];
-  console.log("CURRENT TEMP ^^^^", currentTemp);
+  // const currentTemp = [...new Set(forecast.map((item) => item.main))];
+  // console.log("CURRENT TEMP ^^^^", currentTemp);
   //console.log("forecast data ???", forecast.data.main);
 
-  // function displayWeather() {
-  //   return
-  // }
+  function displayWeather() {
+    const currentTemp = [
+      ...new Set(forecast.map((item) => <Weather item={item.main} />)),
+    ];
+    return currentTemp;
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -105,7 +110,7 @@ export default function Form(props) {
         <div>
           <input
             type="text"
-            className="form-control"
+            className="form"
             placeholder="Enter a city name..."
             onChange={handleChange}
           />
@@ -116,20 +121,16 @@ export default function Form(props) {
           onClick={(e) => {
             getWeatherData(e);
           }}
-          // onClick={() => {
-          //   setWeatherData(input);
-          // }}
         >
           Submit
         </button>
       </form>
-      <div>
+      {/* <div>
         <WeatherList data={forecast.data} />
-      </div>
-      <div className="card">
-        <p>{currentTemp}</p>
-        {/* <p>{forecast.data.name}</p> */}
-        {/* <p>{forecast.data.main}</p> */}
+      </div> */}
+
+      <div>
+        <p>{displayWeather()}</p>
       </div>
     </div>
   );
