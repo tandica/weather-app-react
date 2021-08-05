@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Form from "./components/Form";
+import WeatherList from "./components/WeatherList";
+// import WeatherList from "./components/WeatherList";
 require("dotenv").config();
 
 function App(props) {
@@ -24,6 +26,7 @@ function App(props) {
   return (
     <div className="App">
       <Form />
+      <WeatherList />
     </div>
   );
 }
