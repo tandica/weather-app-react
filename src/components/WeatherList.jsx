@@ -45,15 +45,5 @@ export default function WeatherList(props) {
   // };
   // }, [props.input]);
 
-  return (
-    <div className="weather-container">
-      {/* <p>{data.main.temp}</p> */}
-
-      {/* {data.map((item) => (
-        <li key={item.id}>{item.main}</li>
-      ))} */}
-      {/* <p>{data.city.name}</p> */}
-      {/* <p>hello</p> */}
-    </div>
-  );
+  return <div className="weather-container"></div>;
 }

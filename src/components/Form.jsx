@@ -6,58 +6,13 @@ require("dotenv").config();
 
 export default function Form(props) {
   const [input, setInput] = useState("");
-
+  const [cityID, setCityID] = useState("");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [weatherData, setWeatherData] = useState({});
   const [forecast, setForecast] = useState([]);
   const [location, setLocation] = useState("");
 
-  //const openWeatherAPIKey = process.env.API_KEY;
-
-  // useEffect(() => {
-
-  //have to do two more get requests - one for forecast and one for precipitation
-  //const currentWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`;
-  //const forecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`;
-
-  // async function getWeatherData(e) {
-  //   e.preventDefault();
-  //   const data = await fetch(
-  //     `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`
-  //   ).then((res) => {
-  //     res.json().then((data) => {
-  //       console.log("dataaaa ", data);
-  //       setForecast({ data: data });
-  //     });
-  //   });
-
-  //console.log("data fetchhhh", data);
-  // axios
-  //   .get(currentWeatherURL)
-  //   .then((data) => {
-  //     console.log("data====>", data.data);
-  //     setWeatherData(data.data);
-  //     console.log("setWeather****", setWeatherData(data));
-  //     console.log("Weather****", weatherData);
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
-
-  // axios
-  //   .get(forecastURL)
-  //   .then((data) => {
-  //     console.log("data====>", data.data);
-  //     setForecast(data.data);
-  //     console.log("forcaste upated ==>", setForecast(data));
-  //     console.log("forecast****", forecast);
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
-
-  // }, [input]);
   async function getWeatherData(e) {
     e.preventDefault();
 
@@ -68,7 +23,10 @@ export default function Form(props) {
       .then((res) => res.json())
       .then((data) => {
         const weatherInfo = [...new Set(data.list.map((item) => item))];
+        const getID = data.city.id;
         //setForecast({ data: data });
+        console.log("getid", getID);
+        setCityID(getID);
         console.log("weatherinfoooo", weatherInfo);
         console.log("weatherinfoooo2", weatherInfo[0]);
         setForecast(weatherInfo);
@@ -84,6 +42,7 @@ export default function Form(props) {
   }
 
   console.log("forecast checkkk", forecast[0]);
+  console.log("city id checkkkkk", cityID);
 
   // const currentTemp = [...new Set(forecast.map((item) => item.main))];
   // console.log("CURRENT TEMP ^^^^", currentTemp);
@@ -91,8 +50,11 @@ export default function Form(props) {
 
   function displayWeather() {
     const currentTemp = [
-      ...new Set(forecast.map((item) => <Weather item={item.main} />)),
+      ...new Set(
+        forecast.map((item, index) => <Weather item={item.main} key={index} />)
+      ),
     ];
+    console.log("display weatjher", currentTemp);
     return currentTemp;
   }
 
@@ -129,8 +91,8 @@ export default function Form(props) {
         <WeatherList data={forecast.data} />
       </div> */}
 
-      <div>
-        <p>{displayWeather()}</p>
+      <div className="weather">
+        <span>{displayWeather()}</span>
       </div>
     </div>
   );
