@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import "./App.css";
 import Form from "./components/Form";
@@ -6,21 +7,19 @@ import WeatherList from "./components/WeatherList";
 require("dotenv").config();
 
 function App(props) {
-  // const [location, setLocation] = useState("");
-  // const [apiData, setApiData] = useState({});
-
-  // const openWeatherAPIKey = { key: process.env.API_KEY };
-  // const openWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${props.lat}&lon=${props.lon}&exclude={part}&appid=${props.openWeatherAPIKey.key}`;
-  // console.log({ openWeatherAPIKey });
-
-  // useEffect(() => {
-  //   fetch(openWeatherURL)
-  //     .then((res) => res.json)
-  //     .then((data) => setApiData);
-  // }, [openWeatherURL]);
-
+  // const [city, setCity] = useState("toronto");
+  // console.log("yoooooo");
   // function getCity(city) {
-  //   setLocation(city);
+  //   setCity(city);
+  //   console.log("cityyyyy", setCity(city));
+  //   axios
+  //     .post(
+  //       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=38f1fbc74deb031d79636062ba66d984`,
+  //       { city }
+  //     )
+  //     .then((res) => {
+  //       console.log("res", res);
+  //     });
   // }
 
   return (
