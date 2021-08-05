@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Weather from "./Weather";
 require("dotenv").config();
 
@@ -6,12 +6,11 @@ export default function Form(props) {
   const [input, setInput] = useState("");
   const [forecast, setForecast] = useState([]);
 
+  //search for weather through city name
   async function getWeatherData(e) {
     e.preventDefault();
-
     const data = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`
-      //` https://api.openweathermap.org/data/2.5/forecast?q=${input}&appid=38f1fbc74deb031d79636062ba66d984`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -22,7 +21,19 @@ export default function Form(props) {
         setForecast(weatherInfo);
       });
 
-    console.log("what is data", data);
+    //console.log("what is data", data);
+  }
+
+  //search for weather with zip code
+  async function getWeatherDataZip(e) {
+    e.preventDefault();
+    const data = await fetch(
+      `  https://api.openweathermap.org/data/2.5/weather?zip=${input}&appid=38f1fbc74deb031d79636062ba66d984`
+    )
+      .then((res) => res.json())
+      .then((data) => data);
+
+    console.log("zipzip", data);
   }
 
   //console.log("forecast checkkk", forecast[0]);
@@ -31,6 +42,7 @@ export default function Form(props) {
   // console.log("CURRENT TEMP ^^^^", currentTemp);
   //console.log("forecast data ???", forecast.data.main);
 
+  //display weather details
   function displayWeather() {
     const currentTemp = [
       ...new Set(
@@ -44,21 +56,8 @@ export default function Form(props) {
         ))
       ),
     ];
-    console.log("display weatjher", currentTemp);
     return currentTemp;
   }
-
-  // function displayDecsription() {
-  //   const description = [
-  //     ...new Set(
-  //       forecast.map((item, index) => (
-  //         <Weather item={item.weather} key={index} />
-  //       ))
-  //     ),
-  //   ];
-  //   console.log("display desc", description);
-  //   return description;
-  // }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -84,6 +83,7 @@ export default function Form(props) {
           className="btn btn-primary"
           onClick={(e) => {
             getWeatherData(e);
+            getWeatherDataZip(e);
           }}
         >
           Submit

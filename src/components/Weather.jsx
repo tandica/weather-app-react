@@ -4,6 +4,7 @@ export default function Weather(props) {
   console.log("desc ====>", props.desc[0].description);
   console.log("WIND ====>", props.wind);
 
+  //get value of description from array of objects to display
   const description = [...new Set(props.desc.map((item) => item.description))];
   console.log("do it work", description);
 
