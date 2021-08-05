@@ -4,17 +4,20 @@ import Weather from "./Weather";
 require("dotenv").config();
 
 export default function WeatherList(props) {
-  const [input, setInput] = useState("");
+  // const [input, setInput] = useState("");
   const [weatherData, setWeatherData] = useState([]);
-  const openWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${input}&appid=38f1fbc74deb031d79636062ba66d984`;
 
-  const getWeatherData = (city) => {
-    axios.get(openWeatherURL).then((data) => {
-      console.log("data====>", data);
-      setWeatherData(data.data);
-      console.log("setweather*****", setWeatherData(data.data));
-    });
-  };
+  useEffect(() => {
+    const openWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${props.input}&appid=38f1fbc74deb031d79636062ba66d984`;
+    const getWeatherData = (city) => {
+      axios.get(openWeatherURL).then((data) => {
+        console.log("data====>", data);
+        setWeatherData(data.data);
+        console.log("setweather*****", setWeatherData(data.data));
+      });
+    };
+  }, [props.input]);
+
   return (
     <div>
       weather
