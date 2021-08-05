@@ -25,7 +25,7 @@ export default function Form(props) {
     console.log("what is data", data);
   }
 
-  console.log("forecast checkkk", forecast[0]);
+  //console.log("forecast checkkk", forecast[0]);
 
   // const currentTemp = [...new Set(forecast.map((item) => item.main))];
   // console.log("CURRENT TEMP ^^^^", currentTemp);
@@ -34,12 +34,26 @@ export default function Form(props) {
   function displayWeather() {
     const currentTemp = [
       ...new Set(
-        forecast.map((item, index) => <Weather item={item.main} key={index} />)
+        forecast.map((item, index) => (
+          <Weather item={item.main} desc={item.weather} key={index} />
+        ))
       ),
     ];
     console.log("display weatjher", currentTemp);
     return currentTemp;
   }
+
+  // function displayDecsription() {
+  //   const description = [
+  //     ...new Set(
+  //       forecast.map((item, index) => (
+  //         <Weather item={item.weather} key={index} />
+  //       ))
+  //     ),
+  //   ];
+  //   console.log("display desc", description);
+  //   return description;
+  // }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -62,7 +76,7 @@ export default function Form(props) {
         </div>
         <button
           type="submit"
-          className="btn btn-light"
+          className="btn btn-primary"
           onClick={(e) => {
             getWeatherData(e);
           }}
