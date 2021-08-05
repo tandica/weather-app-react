@@ -9,7 +9,7 @@ export default function Form(props) {
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [weatherData, setWeatherData] = useState({});
-  const [forecast, setForecast] = useState({});
+  const [forecast, setForecast] = useState([]);
   const [location, setLocation] = useState("");
 
   //const openWeatherAPIKey = process.env.API_KEY;
@@ -64,10 +64,17 @@ export default function Form(props) {
       `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`
     )
       .then((res) => res.json())
-      .then((data) => data);
-
+      .then((data) => data.city);
+    //.then((data) => data);
+    //console.log("newnew", data[0].main);
+    console.log("what is data", data);
+    console.log("name of city", data.name);
+    console.log("forecast2", forecast);
     setForecast({ data: data });
+    //console.log("setforecast ###", setForecast());
   }
+
+  console.log("forecast checkkk", forecast.data);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -104,6 +111,7 @@ export default function Form(props) {
       <div>
         <WeatherList data={forecast.data} />
       </div>
+      <p>{forecast.data.name}</p>
     </div>
   );
 }
