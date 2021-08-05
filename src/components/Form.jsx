@@ -4,10 +4,13 @@ require("dotenv").config();
 
 export default function Form(props) {
   const [input, setInput] = useState("");
+  const [lat, setLat] = useState();
+  const [lon, setLon] = useState();
   const [forecast, setForecast] = useState([]);
 
   //search for weather through city name
   async function getWeatherData(e) {
+    //this one has access to lat and long
     e.preventDefault();
     const data = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`
@@ -15,14 +18,19 @@ export default function Form(props) {
       .then((res) => res.json())
       .then((data) => {
         const weatherInfo = [...new Set(data.list.map((item) => item))];
-
+        console.log("COORDS?????", data.city.coord);
         console.log("weatherinfoooo", weatherInfo);
         console.log("weatherinfoooo2", weatherInfo[0]);
+        //set states to include weather detail, and current longitude and latitude
         setForecast(weatherInfo);
+        setLat(data.city.coord.lat);
+        setLon(data.city.coord.lon);
       });
-
     //console.log("what is data", data);
   }
+
+  console.log("latitude -----", lat);
+  console.log("longitude -----", lon);
 
   //search for weather with zip code
   async function getWeatherDataZip(e) {
@@ -36,6 +44,21 @@ export default function Form(props) {
     console.log("zipzip", data);
   }
 
+  async function getPrecipitationData(e) {
+    //get data from this one call api
+    //reverse geocode with the same lat and long and find the city name
+    //make the city name the search input
+    e.preventDefault();
+    const data = await fetch(
+      `  https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly&appid=38f1fbc74deb031d79636062ba66d984`
+    )
+      .then((res) => res.json())
+      .then((data) => data);
+
+    console.log("LATLON DATA", data);
+  }
+
+  //get precipitation info from one call API
   //console.log("forecast checkkk", forecast[0]);
 
   // const currentTemp = [...new Set(forecast.map((item) => item.main))];
@@ -84,6 +107,7 @@ export default function Form(props) {
           onClick={(e) => {
             getWeatherData(e);
             getWeatherDataZip(e);
+            getPrecipitationData(e);
           }}
         >
           Submit

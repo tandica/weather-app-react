@@ -1,12 +1,12 @@
 export default function Weather(props) {
-  console.log("weather props", props);
-  console.log("temp ====>", props.item.temp);
-  console.log("desc ====>", props.desc[0].description);
-  console.log("WIND ====>", props.wind);
+  // console.log("weather props", props);
+  // console.log("temp ====>", props.item.temp);
+  // console.log("desc ====>", props.desc[0].description);
+  // console.log("WIND ====>", props.wind);
 
   //get value of description from array of objects to display
   const description = [...new Set(props.desc.map((item) => item.description))];
-  console.log("do it work", description);
+  //console.log("do it work", description);
 
   return (
     <div className="card">
