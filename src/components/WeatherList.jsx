@@ -5,12 +5,15 @@ require("dotenv").config();
 
 export default function WeatherList(props) {
   const { data } = props;
-  console.log("data $$$$", data);
+  //console.log("data $$$$", data);
+
   //console.log("data $$$$", data.name);
   //console.log("data $$$$", data[0].main);
   //console.log("data type ^^^^", data.city);
   //console.log("does this work", data[0]);
-  console.log("data -----", props);
+
+  //console.log("data -----", props);
+
   //console.log("data -----", typeof props);
   //console.log("TEMP*****", props);
   // const [input, setInput] = useState("");
@@ -50,7 +53,7 @@ export default function WeatherList(props) {
         <li key={item.id}>{item.main}</li>
       ))} */}
       {/* <p>{data.city.name}</p> */}
-      <p>hello</p>
+      {/* <p>hello</p> */}
     </div>
   );
 }

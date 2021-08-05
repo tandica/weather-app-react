@@ -64,17 +64,32 @@ export default function Form(props) {
       `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`
     )
       .then((res) => res.json())
-      .then((data) => data.city);
+      .then((data) => {
+        const weatherInfo = [...new Set(data.list.map((item) => item.main))];
+        //setForecast({ data: data });
+        console.log("weatherinfoooo", weatherInfo);
+        console.log("weatherinfoooo2", weatherInfo[0]);
+        setForecast(weatherInfo);
+      });
     //.then((data) => data);
     //console.log("newnew", data[0].main);
-    console.log("what is data", data);
-    console.log("name of city", data.name);
-    console.log("forecast2", forecast);
-    setForecast({ data: data });
+    // console.log("temp ?????", data[0].main.temp);
+    //console.log("name of city", data.name);
+    //console.log("forecast2", forecast.data);
+    //setForecast({ data: data });
     //console.log("setforecast ###", setForecast());
+    console.log("what is data", data);
   }
 
-  console.log("forecast checkkk", forecast.data);
+  console.log("forecast checkkk", forecast[0]);
+
+  const currentTemp = [...new Set(forecast.map((item) => item.temp))];
+  console.log("CURRENT TEMP ^^^^", currentTemp);
+  //console.log("forecast data ???", forecast.data.main);
+
+  // function displayWeather() {
+  //   return
+  // }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -111,7 +126,11 @@ export default function Form(props) {
       <div>
         <WeatherList data={forecast.data} />
       </div>
-      <p>{forecast.data.name}</p>
+      <div className="card">
+        <p>{currentTemp}</p>
+        {/* <p>{forecast.data.name}</p> */}
+        {/* <p>{forecast.data.main}</p> */}
+      </div>
     </div>
   );
 }
