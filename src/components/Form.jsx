@@ -35,7 +35,12 @@ export default function Form(props) {
     const currentTemp = [
       ...new Set(
         forecast.map((item, index) => (
-          <Weather item={item.main} desc={item.weather} key={index} />
+          <Weather
+            item={item.main}
+            desc={item.weather}
+            wind={item.wind}
+            key={index}
+          />
         ))
       ),
     ];

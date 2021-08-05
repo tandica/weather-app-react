@@ -1,7 +1,8 @@
 export default function Weather(props) {
   console.log("weather props", props);
-  console.log("weather props temp ====>", props.item.temp);
-  console.log("weather desc ====>", props.desc[0].description);
+  console.log("temp ====>", props.item.temp);
+  console.log("desc ====>", props.desc[0].description);
+  console.log("WIND ====>", props.wind);
 
   const description = [...new Set(props.desc.map((item) => item.description))];
   console.log("do it work", description);
@@ -18,6 +19,7 @@ export default function Weather(props) {
           Low: {Math.round(props.item.temp_min - 273.15)}°C
         </p>
         <p className="card-text">Humidity: {props.item.humidity}%</p>
+        <p className="card-text">Wind Speed: {props.wind.speed} m/s</p>
       </div>
     </div>
   );
