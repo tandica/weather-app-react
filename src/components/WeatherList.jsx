@@ -1,11 +1,14 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 import Weather from "./Weather";
 require("dotenv").config();
 
 export default function WeatherList(props) {
+  const { data } = props;
+  console.log("data $$$$", data);
+  console.log("data -----", props.city);
   // const [input, setInput] = useState("");
-  const [weatherData, setWeatherData] = useState([]);
+  //const [weatherData, setWeatherData] = useState([]);
 
   // useEffect(() => {
   //const openWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${props.input}&appid=38f1fbc74deb031d79636062ba66d984`;
@@ -34,9 +37,9 @@ export default function WeatherList(props) {
   // }, [props.input]);
 
   return (
-    <div>
-      weather
-      <div className="weather-container"></div>
+    <div className="weather-container">
+      {/* <p>{data.city.name}</p> */}
+      <p>hello</p>
     </div>
   );
 }
