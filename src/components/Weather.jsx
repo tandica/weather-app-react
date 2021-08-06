@@ -1,15 +1,8 @@
 import "../styles/Weather.css";
 
 export default function Weather(props) {
-  // console.log("weather props", props);
-  // console.log("temp ====>", props.item.temp);
-  // console.log("desc ====>", props.desc[0].description);
-  // console.log("WIND ====>", props.wind);
-  console.log("p ====>", props.precip);
-
-  //get value of description from array of objects to display
+  //get value of description from array of objects to display in weather container
   const description = [...new Set(props.desc.map((item) => item.description))];
-  //console.log("do it work", description);
 
   return (
     <div className="weather-section">

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "../styles/Weather.css";
 import "../styles/Form.css";
 import Weather from "./Weather";
@@ -6,18 +6,17 @@ require("dotenv").config();
 
 export default function Form(props) {
   const [input, setInput] = useState("");
-  const [lat, setLat] = useState();
-  const [lon, setLon] = useState();
+  // const [lat, setLat] = useState();
+  // const [lon, setLon] = useState();
   const [forecast, setForecast] = useState([]);
-  const [dataPrec, setDataPrec] = useState([]);
-  const [precipData, setPrecipData] = useState([]);
+  // const [dataPrec, setDataPrec] = useState([]);
+  // const [precipData, setPrecipData] = useState([]);
   const [error, setError] = useState(null);
 
   const APIKEY = process.env.REACT_APP_API_KEY;
-  console.log(APIKEY);
+
   //search for weather through city name
   async function getWeatherData(e) {
-    //this one has access to lat and long
     e.preventDefault();
     const data = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=${APIKEY}`
@@ -29,13 +28,12 @@ export default function Form(props) {
         console.log("weatherinfoooo", weatherInfo);
         console.log("weatherinfoooo2", weatherInfo[0].pop);
         console.log("here ------>", data.list);
-        //set states to include weather detail, and current longitude and latitude
+        //set states to include weather detail
         setForecast(weatherInfo);
         //setDataPrec(data);
-        setLat(data.city.coord.lat);
-        setLon(data.city.coord.lon);
+        // setLat(data.city.coord.lat);
+        // setLon(data.city.coord.lon);
       });
-    //console.log("what is data", data);
   }
 
   //get weather details and coordinate data
@@ -68,8 +66,6 @@ export default function Form(props) {
     )
       .then((res) => res.json())
       .then((data) => data);
-
-    console.log("zipzip", data);
   }
 
   //console.log("PREC DATA", dataPrec);
@@ -116,7 +112,7 @@ export default function Form(props) {
     return currentTemp;
   }
 
-  console.log("FORECAST", forecast);
+  // console.log("FORECAST", forecast);
 
   function handleSubmit(e) {
     e.preventDefault();
