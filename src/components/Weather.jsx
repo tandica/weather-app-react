@@ -30,7 +30,7 @@ export default function Weather(props) {
           <p className="weather-text">Humidity: {props.item.humidity}%</p>
           <p className="weather-text">Wind Speed: {props.wind.speed} m/s</p>
           <p className="weather-text">
-            Chance of precipitation: {props.precip * 100}%
+            Chance of precipitation: {Math.round(props.precip * 100)}%
           </p>
         </div>
       </div>
