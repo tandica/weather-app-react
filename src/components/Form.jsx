@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "../styles/Weather.css";
+import "../styles/Form.css";
 //import { APIKEY } from "../data";
 import Weather from "./Weather";
 require("dotenv").config();
@@ -151,6 +152,7 @@ export default function Form(props) {
 
   return (
     <div>
+      <h3 className="page-title">Search for a city or zip code</h3>
       <form className="input-form" onSubmit={handleSubmit}>
         <div>
           <input
