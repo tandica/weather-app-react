@@ -14,10 +14,12 @@ export default function Weather(props) {
     <div className="weather-section">
       <div className="weather-container">
         <div className="weather-data">
-          <h3 className="weather-text">
+          <h3 className="current-temp">
             {Math.round(props.item.temp - 273.15)}°C
           </h3>
-          <p className="weather-text">{description}</p>
+          <p className="weather-text-desc">
+            <strong> {description}</strong>
+          </p>
           <p className="weather-text">
             High: {Math.round(props.item.temp_max - 273.15)}°C
           </p>

@@ -10,6 +10,7 @@ export default function Form(props) {
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
   const [forecast, setForecast] = useState([]);
+  const [error, setError] = useState(null);
 
   //search for weather through city name
   async function getWeatherData(e) {
@@ -144,14 +145,31 @@ export default function Form(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    setError(false);
+    if (!input) {
+      setError(true);
+    }
   }
 
+  console.log("error", error);
   function handleChange(e) {
     setInput(e.target.value);
+    setError(false);
+  }
+
+  function click(e) {
+    e.preventDefault();
+    if (handleSubmit(e)) {
+      console.log("here?");
+    } else {
+      getWeatherData(e);
+      getWeatherDataZip(e);
+      getPrecipitationData(e);
+    }
   }
 
   return (
-    <div>
+    <div className="background-container">
       <h3 className="page-title">Search for a city or zip code</h3>
       <form className="input-form" onSubmit={handleSubmit}>
         <div>
@@ -163,20 +181,28 @@ export default function Form(props) {
           />
         </div>
         <button
-          type="submit"
+          type="button"
           className="btn btn-light"
+          // onClick={(e) => {
+          //   handleSubmit(e);
+          //   getWeatherData(e);
+          //   getWeatherDataZip(e);
+          //   getPrecipitationData(e);
+          // }}
+
           onClick={(e) => {
-            getWeatherData(e);
-            getWeatherDataZip(e);
-            getPrecipitationData(e);
+            click(e);
           }}
         >
           Submit
         </button>
       </form>
       <div>
-        7 day forecase for {input}
-        <div className="weather">{displayWeather()}</div>
+        {error ? (
+          `Please type a city name!`
+        ) : (
+          <div className="weather">{displayWeather()}</div>
+        )}
       </div>
     </div>
   );
