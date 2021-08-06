@@ -1,3 +1,7 @@
+* {
+  font-family: "Montserrat", sans-serif;
+}
+
 .App {
   text-align: center;
   background-image: url("bg-image-weather-3.jpg");
