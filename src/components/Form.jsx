@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import "../styles/Weather.css";
+//import { APIKEY } from "../data";
 import Weather from "./Weather";
 require("dotenv").config();
 
@@ -29,6 +31,41 @@ export default function Form(props) {
     //console.log("what is data", data);
   }
 
+  // useEffect(() => {
+  //   function fetching() {
+  //     fetch(
+  //       `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`
+  //     )
+  //       .then((res) => res.json())
+  //       .then((data) => console.log("data is here****", data.city.name));
+  //     //console.log("diff type data", data);
+  //     //console.log("data here", data.city);
+  //     //set states to include weather detail, and current longitude and latitude
+  //     // setLat(data.city.coord.lat);
+  //     // setLon(data.city.coord.lon);
+  //     //const weatherInfo = [...new Set(data.list.map((item) => item))];
+  //     //setForecast(weatherInfo);
+  //   }
+  //   fetching();
+  // }, [input]);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     await fetch(
+  //       `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`
+  //     )
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         console.log("what is this", data.list);
+  //         //set states to include weather detail, and current longitude and latitude
+  //         //setLat(data.city.coord.lat);
+  //         //setLon(data.city.coord.lon);
+  //         const weatherInfo = [...new Set(data.list.map((item) => item))];
+  //         // setForecast(weatherInfo);
+  //       });
+  //   })();
+  // }, [input]);
+
   console.log("latitude -----", lat);
   console.log("longitude -----", lon);
 
@@ -57,6 +94,28 @@ export default function Form(props) {
 
     console.log("LATLON DATA", data);
   }
+
+  // useEffect(() => {
+  //   async function getWeatherData() {
+  //     //this one has access to lat and long
+
+  //     const data = await fetch(
+  //       `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`
+  //     )
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         setLat(data.city.coord.lat);
+  //         setLon(data.city.coord.lon);
+  //         const weatherInfo = [...new Set(data.list.map((item) => item))];
+  //         console.log("COORDS?????", data.city.coord);
+  //         console.log("weatherinfoooo", weatherInfo);
+  //         console.log("weatherinfoooo2", weatherInfo[0]);
+  //         //set states to include weather detail, and current longitude and latitude
+  //         setForecast(weatherInfo);
+  //       });
+  //     //console.log("what is data", data);
+  //   }
+  // });
 
   //get precipitation info from one call API
   //console.log("forecast checkkk", forecast[0]);

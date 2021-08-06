@@ -1,0 +1,21 @@
+.weather {
+  /* background-color: coral; */
+}
+
+.weather-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  /* width: 30%; */
+  border: 2px solid coral;
+  margin-top: 2em;
+  margin-right: 2em;
+  margin-left: 2em;
+}
+
+.card-body {
+  /* background-color: blueviolet; */
+}
