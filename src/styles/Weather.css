@@ -22,3 +22,9 @@
   margin-bottom: 0.2rem;
   font-size: 12px;
 }
+
+@media screen and (max-width: 768px) {
+  .weather-data {
+    margin: 0.2em;
+  }
+}
