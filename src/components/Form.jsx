@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import "../styles/Weather.css";
 import "../styles/Form.css";
-//import { APIKEY } from "../data";
 import Weather from "./Weather";
 require("dotenv").config();
 
@@ -14,12 +13,14 @@ export default function Form(props) {
   const [precipData, setPrecipData] = useState([]);
   const [error, setError] = useState(null);
 
+  const APIKEY = process.env.REACT_APP_API_KEY;
+  console.log(APIKEY);
   //search for weather through city name
   async function getWeatherData(e) {
     //this one has access to lat and long
     e.preventDefault();
     const data = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`
+      `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=${APIKEY}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -30,7 +31,7 @@ export default function Form(props) {
         console.log("here ------>", data.list);
         //set states to include weather detail, and current longitude and latitude
         setForecast(weatherInfo);
-        setDataPrec(data);
+        //setDataPrec(data);
         setLat(data.city.coord.lat);
         setLon(data.city.coord.lon);
       });
@@ -63,7 +64,7 @@ export default function Form(props) {
   async function getWeatherDataZip(e) {
     e.preventDefault();
     const data = await fetch(
-      `  https://api.openweathermap.org/data/2.5/weather?zip=${input}&appid=38f1fbc74deb031d79636062ba66d984`
+      `  https://api.openweathermap.org/data/2.5/weather?zip=${input}&appid=${APIKEY}`
     )
       .then((res) => res.json())
       .then((data) => data);
@@ -71,21 +72,21 @@ export default function Form(props) {
     console.log("zipzip", data);
   }
 
-  console.log("PREC DATA", dataPrec);
+  //console.log("PREC DATA", dataPrec);
   //GET PRECIPITATION INFO
-  async function getPrecipitationData(e) {
-    //get data from this one call api
-    //reverse geocode with the same lat and long and find the city name
-    //make the city name the search input
-    e.preventDefault();
-    const data = await fetch(
-      `  https://api.openweathermap.org/data/2.5/onecall?lat=35.6895&lon=139.6917&exclude=hourly&appid=38f1fbc74deb031d79636062ba66d984`
-    )
-      .then((res) => res.json())
-      .then((data) => data);
-    setPrecipData(data);
-    console.log("LATLON DATA", data);
-  }
+  // async function getPrecipitationData(e) {
+  //   //get data from this one call api
+  //   //reverse geocode with the same lat and long and find the city name
+  //   //make the city name the search input
+  //   e.preventDefault();
+  //   const data = await fetch(
+  //     `  https://api.openweathermap.org/data/2.5/onecall?lat=35.6895&lon=139.6917&exclude=hourly&appid=38f1fbc74deb031d79636062ba66d984`
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => data);
+  //   setPrecipData(data);
+  //   console.log("LATLON DATA", data);
+  // }
 
   // console.log("LOOK HERE-----", precipData);
 
@@ -144,7 +145,7 @@ export default function Form(props) {
     } else {
       getWeatherData(e);
       getWeatherDataZip(e);
-      getPrecipitationData(e);
+      //getPrecipitationData(e);
     }
   }
 
@@ -172,7 +173,7 @@ export default function Form(props) {
       </form>
       <div>
         {error ? (
-          `Please type a city name!`
+          `Please type a city name.`
         ) : (
           <div className="weather">{displayWeather()}</div>
         )}
