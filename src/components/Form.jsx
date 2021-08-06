@@ -164,7 +164,7 @@ export default function Form(props) {
         </div>
         <button
           type="submit"
-          className="btn btn-primary"
+          className="btn btn-light"
           onClick={(e) => {
             getWeatherData(e);
             getWeatherDataZip(e);
