@@ -10,28 +10,30 @@ export default function Form(props) {
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
   const [forecast, setForecast] = useState([]);
+  const [dataPrec, setDataPrec] = useState([]);
   const [error, setError] = useState(null);
 
   //search for weather through city name
-  async function getWeatherData(e) {
-    //this one has access to lat and long
-    e.preventDefault();
-    const data = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        const weatherInfo = [...new Set(data.list.map((item) => item))];
-        console.log("COORDS?????", data.city.coord);
-        console.log("weatherinfoooo", weatherInfo);
-        console.log("weatherinfoooo2", weatherInfo[0]);
-        //set states to include weather detail, and current longitude and latitude
-        setForecast(weatherInfo);
-        setLat(data.city.coord.lat);
-        setLon(data.city.coord.lon);
-      });
-    //console.log("what is data", data);
-  }
+  // async function getWeatherData(e) {
+  //   //this one has access to lat and long
+  //   e.preventDefault();
+  //   const data = await fetch(
+  //     `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       const weatherInfo = [...new Set(data.list.map((item) => item))];
+  //       console.log("COORDS?????", data.city.coord);
+  //       console.log("weatherinfoooo", weatherInfo);
+  //       console.log("weatherinfoooo2", weatherInfo[0]);
+  //       //set states to include weather detail, and current longitude and latitude
+  //       setForecast(weatherInfo);
+  //       setDataPrec(data);
+  //       setLat(data.city.coord.lat);
+  //       setLon(data.city.coord.lon);
+  //     });
+  //   //console.log("what is data", data);
+  // }
 
   // useEffect(() => {
   //   function fetching() {
@@ -39,7 +41,11 @@ export default function Form(props) {
   //       `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`
   //     )
   //       .then((res) => res.json())
-  //       .then((data) => console.log("data is here****", data.city.name));
+  //       .then((data) => {
+  //         console.log("*****", data);
+
+  //         setDataPrec(data);
+  //       });
   //     //console.log("diff type data", data);
   //     //console.log("data here", data.city);
   //     //set states to include weather detail, and current longitude and latitude
@@ -50,6 +56,27 @@ export default function Form(props) {
   //   }
   //   fetching();
   // }, [input]);
+
+  useEffect(() => {
+    (async () => {
+      await fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("*****", data);
+
+          setDataPrec(data);
+          //set states to include weather detail, and current longitude and latitude
+          // setLat(data.city.coord.lat);
+          // setLon(data.city.coord.lon);
+          // const weatherInfo = [...new Set(data.list.map((item) => item))];
+          // setForecast(weatherInfo);
+        });
+    })();
+  }, [input]);
+
+  //console.log("what is there", dataPrec.city.coord);
 
   // useEffect(() => {
   //   (async () => {
@@ -89,7 +116,7 @@ export default function Form(props) {
     //make the city name the search input
     e.preventDefault();
     const data = await fetch(
-      `  https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly&appid=38f1fbc74deb031d79636062ba66d984`
+      `  https://api.openweathermap.org/data/2.5/onecall?lat=${dataPrec.city.coord.lat}&lon=${dataPrec.city.coord.lon}&exclude=hourly&appid=38f1fbc74deb031d79636062ba66d984`
     )
       .then((res) => res.json())
       .then((data) => data);
@@ -143,6 +170,8 @@ export default function Form(props) {
     return currentTemp;
   }
 
+  console.log("FORECAST", forecast);
+
   function handleSubmit(e) {
     e.preventDefault();
     setError(false);
@@ -162,7 +191,7 @@ export default function Form(props) {
     if (handleSubmit(e)) {
       console.log("here?");
     } else {
-      getWeatherData(e);
+      //getWeatherData(e);
       getWeatherDataZip(e);
       getPrecipitationData(e);
     }
@@ -176,7 +205,7 @@ export default function Form(props) {
           <input
             type="text"
             className="form"
-            placeholder="Enter a city name..."
+            placeholder="City name or zip code..."
             onChange={handleChange}
           />
         </div>
