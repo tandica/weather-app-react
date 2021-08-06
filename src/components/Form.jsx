@@ -99,12 +99,6 @@ export default function Form(props) {
 
   //display weather details
 
-  // function getPrecipitation() {
-  //   const precipitation = [
-  //     ...new Set(
-  //       .map((item, index)
-  // }
-
   function displayWeather() {
     const currentTemp = [
       ...new Set(
@@ -145,14 +139,17 @@ export default function Form(props) {
     } else {
       getWeatherData(e);
       getWeatherDataZip(e);
-      //getPrecipitationData(e);
     }
   }
 
   return (
     <div className="background-container">
       <h3 className="page-title">Search for a city or zip code</h3>
-      <form className="input-form" onSubmit={handleSubmit}>
+      <form
+        className="input-form"
+        onSubmit={handleSubmit}
+        data-testid="form-test"
+      >
         <div>
           <input
             type="text"
@@ -168,15 +165,12 @@ export default function Form(props) {
             click(e);
           }}
         >
-          Submit
+          Search
         </button>
       </form>
       <div>
-        {error ? (
-          `Please type a city name.`
-        ) : (
-          <div className="weather">{displayWeather()}</div>
-        )}
+        {/* {error ? `Please type a city name.` : null} */}
+        <div className="weather">{displayWeather()}</div>
       </div>
     </div>
   );
