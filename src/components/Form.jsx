@@ -145,15 +145,12 @@ export default function Form(props) {
   return (
     <div className="background-container">
       <h3 className="page-title">Search for a city or zip code</h3>
-      <form
-        className="input-form"
-        onSubmit={handleSubmit}
-        data-testid="form-test"
-      >
+      <form className="input-form" onSubmit={handleSubmit} id="form-test">
         <div>
           <input
             type="text"
             className="form"
+            id="inputLocation"
             placeholder="City name or zip code..."
             onChange={handleChange}
           />
