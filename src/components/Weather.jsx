@@ -5,6 +5,7 @@ export default function Weather(props) {
   // console.log("temp ====>", props.item.temp);
   // console.log("desc ====>", props.desc[0].description);
   // console.log("WIND ====>", props.wind);
+  console.log("p ====>", props.precip);
 
   //get value of description from array of objects to display
   const description = [...new Set(props.desc.map((item) => item.description))];
@@ -28,6 +29,9 @@ export default function Weather(props) {
           </p>
           <p className="weather-text">Humidity: {props.item.humidity}%</p>
           <p className="weather-text">Wind Speed: {props.wind.speed} m/s</p>
+          <p className="weather-text">
+            Chance of precipitation: {props.precip * 100}%
+          </p>
         </div>
       </div>
     </div>

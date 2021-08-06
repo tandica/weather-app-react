@@ -26,10 +26,11 @@ export default function Form(props) {
         const weatherInfo = [...new Set(data.list.map((item) => item))];
         console.log("COORDS?????", data.city.coord);
         console.log("weatherinfoooo", weatherInfo);
-        console.log("weatherinfoooo2", weatherInfo[0]);
+        console.log("weatherinfoooo2", weatherInfo[0].pop);
+        console.log("here ------>", data.list);
         //set states to include weather detail, and current longitude and latitude
         setForecast(weatherInfo);
-        //setDataPrec(data);
+        setDataPrec(data);
         setLat(data.city.coord.lat);
         setLon(data.city.coord.lon);
       });
@@ -70,20 +71,21 @@ export default function Form(props) {
     console.log("zipzip", data);
   }
 
+  console.log("PREC DATA", dataPrec);
   //GET PRECIPITATION INFO
-  // async function getPrecipitationData(e) {
-  //   //get data from this one call api
-  //   //reverse geocode with the same lat and long and find the city name
-  //   //make the city name the search input
-  //   e.preventDefault();
-  //   const data = await fetch(
-  //     `  https://api.openweathermap.org/data/2.5/onecall?lat=${dataPrec.city.coord.lat}&lon=${dataPrec.city.coord.lon}&exclude=hourly&appid=38f1fbc74deb031d79636062ba66d984`
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => data);
-  //   setPrecipData(data);
-  //   console.log("LATLON DATA", data);
-  // }
+  async function getPrecipitationData(e) {
+    //get data from this one call api
+    //reverse geocode with the same lat and long and find the city name
+    //make the city name the search input
+    e.preventDefault();
+    const data = await fetch(
+      `  https://api.openweathermap.org/data/2.5/onecall?lat=35.6895&lon=139.6917&exclude=hourly&appid=38f1fbc74deb031d79636062ba66d984`
+    )
+      .then((res) => res.json())
+      .then((data) => data);
+    setPrecipData(data);
+    console.log("LATLON DATA", data);
+  }
 
   // console.log("LOOK HERE-----", precipData);
 
@@ -110,6 +112,7 @@ export default function Form(props) {
             item={item.main}
             desc={item.weather}
             wind={item.wind}
+            precip={item.pop}
             key={index}
           />
         ))
@@ -141,7 +144,7 @@ export default function Form(props) {
     } else {
       getWeatherData(e);
       getWeatherDataZip(e);
-      //getPrecipitationData(e);
+      getPrecipitationData(e);
     }
   }
 
