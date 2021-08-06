@@ -11,33 +11,35 @@ export default function Form(props) {
   const [lon, setLon] = useState();
   const [forecast, setForecast] = useState([]);
   const [dataPrec, setDataPrec] = useState([]);
+  const [precipData, setPrecipData] = useState([]);
   const [error, setError] = useState(null);
 
   //search for weather through city name
-  // async function getWeatherData(e) {
-  //   //this one has access to lat and long
-  //   e.preventDefault();
-  //   const data = await fetch(
-  //     `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       const weatherInfo = [...new Set(data.list.map((item) => item))];
-  //       console.log("COORDS?????", data.city.coord);
-  //       console.log("weatherinfoooo", weatherInfo);
-  //       console.log("weatherinfoooo2", weatherInfo[0]);
-  //       //set states to include weather detail, and current longitude and latitude
-  //       setForecast(weatherInfo);
-  //       setDataPrec(data);
-  //       setLat(data.city.coord.lat);
-  //       setLon(data.city.coord.lon);
-  //     });
-  //   //console.log("what is data", data);
-  // }
+  async function getWeatherData(e) {
+    //this one has access to lat and long
+    e.preventDefault();
+    const data = await fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        const weatherInfo = [...new Set(data.list.map((item) => item))];
+        console.log("COORDS?????", data.city.coord);
+        console.log("weatherinfoooo", weatherInfo);
+        console.log("weatherinfoooo2", weatherInfo[0]);
+        //set states to include weather detail, and current longitude and latitude
+        setForecast(weatherInfo);
+        //setDataPrec(data);
+        setLat(data.city.coord.lat);
+        setLon(data.city.coord.lon);
+      });
+    //console.log("what is data", data);
+  }
 
+  //get weather details and coordinate data
   // useEffect(() => {
-  //   function fetching() {
-  //     fetch(
+  //   (async () => {
+  //     const data = await fetch(
   //       `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`
   //     )
   //       .then((res) => res.json())
@@ -45,58 +47,16 @@ export default function Form(props) {
   //         console.log("*****", data);
 
   //         setDataPrec(data);
-  //       });
-  //     //console.log("diff type data", data);
-  //     //console.log("data here", data.city);
-  //     //set states to include weather detail, and current longitude and latitude
-  //     // setLat(data.city.coord.lat);
-  //     // setLon(data.city.coord.lon);
-  //     //const weatherInfo = [...new Set(data.list.map((item) => item))];
-  //     //setForecast(weatherInfo);
-  //   }
-  //   fetching();
-  // }, [input]);
-
-  useEffect(() => {
-    (async () => {
-      await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          console.log("*****", data);
-
-          setDataPrec(data);
-          //set states to include weather detail, and current longitude and latitude
-          // setLat(data.city.coord.lat);
-          // setLon(data.city.coord.lon);
-          // const weatherInfo = [...new Set(data.list.map((item) => item))];
-          // setForecast(weatherInfo);
-        });
-    })();
-  }, [input]);
-
-  //console.log("what is there", dataPrec.city.coord);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     await fetch(
-  //       `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`
-  //     )
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         console.log("what is this", data.list);
   //         //set states to include weather detail, and current longitude and latitude
-  //         //setLat(data.city.coord.lat);
-  //         //setLon(data.city.coord.lon);
-  //         const weatherInfo = [...new Set(data.list.map((item) => item))];
-  //         // setForecast(weatherInfo);
+  //         // setLat(data.city.coord.lat);
+  //         // setLon(data.city.coord.lon);
+  //         //const weatherInfo = [...new Set(data.list.map((item) => item))];
+  //         //setForecast(weatherInfo);
   //       });
   //   })();
   // }, [input]);
 
-  console.log("latitude -----", lat);
-  console.log("longitude -----", lon);
+  //console.log("what is there", dataPrec.city.coord);
 
   //search for weather with zip code
   async function getWeatherDataZip(e) {
@@ -110,41 +70,22 @@ export default function Form(props) {
     console.log("zipzip", data);
   }
 
-  async function getPrecipitationData(e) {
-    //get data from this one call api
-    //reverse geocode with the same lat and long and find the city name
-    //make the city name the search input
-    e.preventDefault();
-    const data = await fetch(
-      `  https://api.openweathermap.org/data/2.5/onecall?lat=${dataPrec.city.coord.lat}&lon=${dataPrec.city.coord.lon}&exclude=hourly&appid=38f1fbc74deb031d79636062ba66d984`
-    )
-      .then((res) => res.json())
-      .then((data) => data);
+  //GET PRECIPITATION INFO
+  // async function getPrecipitationData(e) {
+  //   //get data from this one call api
+  //   //reverse geocode with the same lat and long and find the city name
+  //   //make the city name the search input
+  //   e.preventDefault();
+  //   const data = await fetch(
+  //     `  https://api.openweathermap.org/data/2.5/onecall?lat=${dataPrec.city.coord.lat}&lon=${dataPrec.city.coord.lon}&exclude=hourly&appid=38f1fbc74deb031d79636062ba66d984`
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => data);
+  //   setPrecipData(data);
+  //   console.log("LATLON DATA", data);
+  // }
 
-    console.log("LATLON DATA", data);
-  }
-
-  // useEffect(() => {
-  //   async function getWeatherData() {
-  //     //this one has access to lat and long
-
-  //     const data = await fetch(
-  //       `https://api.openweathermap.org/data/2.5/forecast?q=${input}&cnt=7&appid=38f1fbc74deb031d79636062ba66d984`
-  //     )
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         setLat(data.city.coord.lat);
-  //         setLon(data.city.coord.lon);
-  //         const weatherInfo = [...new Set(data.list.map((item) => item))];
-  //         console.log("COORDS?????", data.city.coord);
-  //         console.log("weatherinfoooo", weatherInfo);
-  //         console.log("weatherinfoooo2", weatherInfo[0]);
-  //         //set states to include weather detail, and current longitude and latitude
-  //         setForecast(weatherInfo);
-  //       });
-  //     //console.log("what is data", data);
-  //   }
-  // });
+  // console.log("LOOK HERE-----", precipData);
 
   //get precipitation info from one call API
   //console.log("forecast checkkk", forecast[0]);
@@ -154,6 +95,13 @@ export default function Form(props) {
   //console.log("forecast data ???", forecast.data.main);
 
   //display weather details
+
+  // function getPrecipitation() {
+  //   const precipitation = [
+  //     ...new Set(
+  //       .map((item, index)
+  // }
+
   function displayWeather() {
     const currentTemp = [
       ...new Set(
@@ -191,9 +139,9 @@ export default function Form(props) {
     if (handleSubmit(e)) {
       console.log("here?");
     } else {
-      //getWeatherData(e);
+      getWeatherData(e);
       getWeatherDataZip(e);
-      getPrecipitationData(e);
+      //getPrecipitationData(e);
     }
   }
 
@@ -210,15 +158,8 @@ export default function Form(props) {
           />
         </div>
         <button
-          type="button"
+          type="submit"
           className="btn btn-light"
-          // onClick={(e) => {
-          //   handleSubmit(e);
-          //   getWeatherData(e);
-          //   getWeatherDataZip(e);
-          //   getPrecipitationData(e);
-          // }}
-
           onClick={(e) => {
             click(e);
           }}
