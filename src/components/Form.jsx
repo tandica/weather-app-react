@@ -172,8 +172,9 @@ export default function Form(props) {
           Submit
         </button>
       </form>
-      <div className="weather">
-        <span>{displayWeather()}</span>
+      <div>
+        7 day forecase for {input}
+        <div className="weather">{displayWeather()}</div>
       </div>
     </div>
   );

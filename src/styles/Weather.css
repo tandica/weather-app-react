@@ -1,21 +1,23 @@
 .weather {
   /* background-color: coral; */
-}
-
-.weather-container {
-  display: flex;
+  display: -webkit-flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.card {
-  /* width: 30%; */
-  border: 2px solid coral;
-  margin-top: 2em;
-  margin-right: 2em;
-  margin-left: 2em;
+.weather-container {
+  /* display: flex; */
+  /* justify-content: center; */
+  /* flex-wrap: wrap; */
 }
 
-.card-body {
-  /* background-color: blueviolet; */
+.weather-data {
+  /* width: 40%; */
+  border: 2px solid coral;
+  border-radius: 25px;
+  margin-top: 1em;
+  margin-right: 1em;
+  margin-left: 1em;
+  padding: 0.5rem;
+  background-color: rgb(247, 247, 247);
 }

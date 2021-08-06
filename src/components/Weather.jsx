@@ -11,19 +11,21 @@ export default function Weather(props) {
   //console.log("do it work", description);
 
   return (
-    <div className="weather-container">
-      <div className="card">
-        <div className="card-body">
-          <p className="card-text">{Math.round(props.item.temp - 273.15)}°C</p>
-          <p className="card-text">{description}</p>
-          <p className="card-text">
+    <div className="weather-section">
+      <div className="weather-container">
+        <div className="weather-data">
+          <h3 className="weather-text">
+            {Math.round(props.item.temp - 273.15)}°C
+          </h3>
+          <p className="weather-text">{description}</p>
+          <p className="weather-text">
             High: {Math.round(props.item.temp_max - 273.15)}°C
           </p>
-          <p className="card-text">
+          <p className="weather-text">
             Low: {Math.round(props.item.temp_min - 273.15)}°C
           </p>
-          <p className="card-text">Humidity: {props.item.humidity}%</p>
-          <p className="card-text">Wind Speed: {props.wind.speed} m/s</p>
+          <p className="weather-text">Humidity: {props.item.humidity}%</p>
+          <p className="weather-text">Wind Speed: {props.wind.speed} m/s</p>
         </div>
       </div>
     </div>
